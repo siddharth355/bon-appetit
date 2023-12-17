@@ -2,10 +2,13 @@ import React, { useContext, useState } from "react";
 import { Redirect, withRouter, Link } from "react-router-dom";
 import { Form, Input, Button, Typography, Modal } from "antd";
 import { UserOutlined, LockOutlined, GoogleOutlined, GithubOutlined } from "@ant-design/icons";
-import app, { googleProvider, githubProvider } from "./base.js";
+import  {app, googleProvider, githubProvider } from "./base.js";
 import TopHeader from "./TopHeader.js";
 import FooterBottom from "./FooterBottom.js";
 import { AuthContext } from "./Auth.js";
+import {signInWithEmailAndPassword} from 'firebase/auth';
+import { auth } from './base'; 
+
 
 const { Title } = Typography;
 
@@ -28,7 +31,7 @@ const Login = ({ history }) => {
     }
 
     try {
-      await app.auth().signInWithEmailAndPassword(email, password);
+      await signInWithEmailAndPassword(auth, email, password);
       history.push("/");
     } catch (error) {
       setErrorMessage("Invalid Credentials");
@@ -37,23 +40,23 @@ const Login = ({ history }) => {
   };
 
   const handleGoogleLogin = async () => {
-    try {
-      await app.auth().signInWithPopup(googleProvider);
-      history.push("/");
-    } catch (error) {
-      setErrorMessage(error.message);
-      setErrorModalVisible(true);
-    }
+    // try {
+    //   await app.auth().signInWithPopup(googleProvider);
+    //   history.push("/");
+    // } catch (error) {
+    //   setErrorMessage(error.message);
+    //   setErrorModalVisible(true);
+    // }
   };
 
   const handleGithubLogin = async () => {
-    try {
-      await app.auth().signInWithPopup(githubProvider);
-      history.push("/");
-    } catch (error) {
-      setErrorMessage(error.message);
-      setErrorModalVisible(true);
-    }
+    // try {
+    //   await app.auth().signInWithPopup(githubProvider);
+    //   history.push("/");
+    // } catch (error) {
+    //   setErrorMessage(error.message);
+    //   setErrorModalVisible(true);
+    // }
   };
 
   const handleModalClose = () => {

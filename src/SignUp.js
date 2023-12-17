@@ -3,7 +3,9 @@ import React, { useCallback, useState } from "react";
 import { withRouter, Link } from "react-router-dom";
 import { Form, Input, Button, Typography, Upload, message } from "antd";
 import { UploadOutlined } from '@ant-design/icons';
-import app from "./base";
+import { app, githubProvider, googleProvider} from './base.js'; 
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from './base'; 
 import TopHeader from "./TopHeader";
 import FooterBottom from "./FooterBottom";
 
@@ -27,7 +29,7 @@ const SignUp = ({ history }) => {
         });
       }
 
-      await app.auth().createUserWithEmailAndPassword(email, password);
+      await createUserWithEmailAndPassword(auth,email, password);
 
       // Get the currently authenticated user
       const user = app.auth().currentUser;

@@ -1,22 +1,15 @@
+// Home.js
+
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import {
-  Card,
-  Button,
-  Avatar,
-  Typography,
-  Row,
-  Col,
-  message,
-  Spin,
-} from "antd";
-import { HeartFilled, LoadingOutlined } from "@ant-design/icons";
-import app from "./base";
+import { Card, Button, Typography, Row, message } from "antd";
+import { app } from './base.js';
 import TopHeader from "./TopHeader";
-import FooterBottom from "./FooterBottom";// Handle the add/remove from favorites action
+import FooterBottom from "./FooterBottom";
 import ChefCards from "./ChefCards";
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './base'; 
 
-const { Meta } = Card;
 const { Title } = Typography;
 
 const Home = () => {
@@ -26,14 +19,13 @@ const Home = () => {
   const [favoritesMap, setFavoritesMap] = useState(new Map());
 
   useEffect(() => {
-    const unsubscribe = app.auth().onAuthStateChanged((user) => {
+    const unsubscribe = onAuthStateChanged(auth, user => {
       if (user) {
         setUser(user);
       } else {
         history.push("/login");
       }
     });
-
     // Fetch favorites from localStorage
     const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
     const favoritesMap = new Map(storedFavorites.map((chef) => [chef.id, chef]));
@@ -43,10 +35,9 @@ const Home = () => {
       unsubscribe();
     };
   }, [history]);
-
   const handleSignOut = async () => {
     try {
-      await app.auth().signOut();
+      await auth.signOut(); // Use 'auth' directly
       history.push("/login");
     } catch (error) {
       console.error("Error signing out", error);
@@ -148,8 +139,6 @@ const Home = () => {
     // Add more chef data as needed
   ];
 
-
-
   const handleViewRecipes = (chefId) => {
     history.push(`/chef/${chefId}/recipes`);
   };
@@ -181,6 +170,5 @@ const Home = () => {
     </div>
   );
 };
-
 
 export default Home;
