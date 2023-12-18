@@ -9,7 +9,7 @@
     "predeploy": [
     ],
     "postdeploy": [
-      "npm run deploy",
+      "npm run deploy"
     ]
   }
 }
