@@ -2,11 +2,11 @@ import React, { useContext, useState } from "react";
 import { Redirect, withRouter, Link } from "react-router-dom";
 import { Form, Input, Button, Typography, Modal } from "antd";
 import { UserOutlined, LockOutlined, GoogleOutlined, GithubOutlined } from "@ant-design/icons";
-import  {app, googleProvider, githubProvider } from "./base.js";
 import TopHeader from "./TopHeader.js";
 import FooterBottom from "./FooterBottom.js";
 import { AuthContext } from "./Auth.js";
-import {signInWithEmailAndPassword} from 'firebase/auth';
+import { signInWithEmailAndPassword, getAuth, signInWithPopup} from 'firebase/auth';
+import {githubProvider, googleProvider} from "./base.js"
 import { auth } from './base'; 
 
 
@@ -40,23 +40,23 @@ const Login = ({ history }) => {
   };
 
   const handleGoogleLogin = async () => {
-    // try {
-    //   await app.auth().signInWithPopup(googleProvider);
-    //   history.push("/");
-    // } catch (error) {
-    //   setErrorMessage(error.message);
-    //   setErrorModalVisible(true);
-    // }
+    try {
+      await signInWithPopup(auth, googleProvider);
+      history.push("/");
+    } catch (error) {
+      setErrorMessage(error.message);
+      setErrorModalVisible(true);
+    }
   };
-
+  
   const handleGithubLogin = async () => {
-    // try {
-    //   await app.auth().signInWithPopup(githubProvider);
-    //   history.push("/");
-    // } catch (error) {
-    //   setErrorMessage(error.message);
-    //   setErrorModalVisible(true);
-    // }
+    try {
+      await signInWithPopup(auth, githubProvider);
+      history.push("/");
+    } catch (error) {
+      setErrorMessage(error.message);
+      setErrorModalVisible(true);
+    }
   };
 
   const handleModalClose = () => {

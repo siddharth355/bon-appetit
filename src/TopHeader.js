@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Layout, Menu } from 'antd';
-import { HomeOutlined, AppstoreOutlined, HeartOutlined, SettingOutlined } from '@ant-design/icons';
+import { HomeOutlined, AppstoreOutlined, HeartOutlined, SettingOutlined, LogoutOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
+import { AuthContext } from './Auth'; // Update with the correct path
+import { auth } from './base'; // Update with the correct path
 
 const { Header, Content } = Layout;
 
@@ -9,6 +11,7 @@ const TopHeader = () => {
   const history = useHistory();
   const [selectedMenuItem, setSelectedMenuItem] = useState('1');
   const [favorites, setFavorites] = useState([]);
+  const { currentUser } = useContext(AuthContext); // Get the current user from the AuthContext
 
   useEffect(() => {
     const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
@@ -28,6 +31,15 @@ const TopHeader = () => {
     localStorage.setItem('selectedMenuItem', e.key);
   };
 
+  const handleSignOut = async () => {
+    try {
+      await auth.signOut();
+      history.push("/login");
+    } catch (error) {
+      console.error("Error signing out", error);
+    }
+  };
+
   const navigateToPage = (key) => {
     switch (key) {
       case '1':
@@ -40,7 +52,7 @@ const TopHeader = () => {
         history.push('/favorites');
         break;
       case '3':
-        history.push('/settings');
+        history.push('/');
         break;
       default:
         break;
@@ -63,9 +75,16 @@ const TopHeader = () => {
           <Menu.Item key="2" icon={<AppstoreOutlined />}>
             About
           </Menu.Item>
-          <Menu.Item key="4" icon={<HeartOutlined />}>
-            Favorites
-          </Menu.Item>
+          {currentUser && (
+            <>
+              <Menu.Item key="4" icon={<HeartOutlined />}>
+                Favorites
+              </Menu.Item>
+              <Menu.Item key="5" icon={<LogoutOutlined />} onClick={handleSignOut}>
+                Sign Out
+              </Menu.Item>
+            </>
+          )}
           <Menu.Item key="3" icon={<SettingOutlined />}>
             Settings
           </Menu.Item>

@@ -8,7 +8,6 @@ const About = () => {
       <TopHeader />
       <div>
         <h2>About Page</h2>
-        {/* Add your about page content here */}
       </div>
       <FooterBottom />
     </div>
