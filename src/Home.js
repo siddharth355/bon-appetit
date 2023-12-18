@@ -35,14 +35,6 @@ const Home = () => {
       unsubscribe();
     };
   }, [history]);
-  const handleSignOut = async () => {
-    try {
-      await auth.signOut(); // Use 'auth' directly
-      history.push("/login");
-    } catch (error) {
-      console.error("Error signing out", error);
-    }
-  };
 
   const handleAddToFavorites = (chef) => {
     setLoading(true);
@@ -78,7 +70,8 @@ const Home = () => {
       experience: 10,
       recipes: 50,
       likes: 100,
-      image: "chef1.jpg",
+      image: "https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA4L3Jhd3BpeGVsb2ZmaWNlN19wb3J0cmFpdF9vZl9hbl9hZnJpY2FuX2FtZXJpY2FuX2ZlbWFsZV9jaGVmX2luX182YTA4OTdkOS02MGYwLTRmNjQtOTcyYy1mZjEyOGEwMDFkNjMucG5n.png",
+      
     },
     {
       id: 2,
@@ -86,7 +79,7 @@ const Home = () => {
       experience: 8,
       recipes: 40,
       likes: 80,
-      image: "chef2.jpg",
+      image: "https://media.istockphoto.com/id/1299940945/photo/woman-chef-holding-spatula-cooking-equipment.jpg?s=612x612&w=0&k=20&c=BmOEpgaHKlMtJ19Q8pb2e1stMkN-oS4AF6PtuZ2T954=",
     },
     {
       id: 3,
@@ -94,7 +87,7 @@ const Home = () => {
       experience: 12,
       recipes: 60,
       likes: 120,
-      image: "chef3.jpg",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1Iwg0P2XSKGgFg1Q8NN60JS2S7AbXd9wxgV92iuCgEH0uyjerAOhHF0D6oHkehcwCdmc&usqp=CAU",
     },
     {
       id: 4,
@@ -102,7 +95,7 @@ const Home = () => {
       experience: 6,
       recipes: 30,
       likes: 60,
-      image: "chef4.jpg",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcDcaNjG4Gl5w62aS131MzRHRQ613vr7iGEQ&usqp=CAU",
     },
     {
       id: 5,
@@ -110,7 +103,7 @@ const Home = () => {
       experience: 15,
       recipes: 75,
       likes: 150,
-      image: "chef5.jpg",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwtIclBMKZZWKgBcoHR3m4d3-B2RWRfB43nQ&usqp=CAU",
     },
     {
       id: 6,
@@ -118,30 +111,41 @@ const Home = () => {
       experience: 9,
       recipes: 45,
       likes: 90,
-      image: "chef6.jpg",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiKTb5PngHQg97OxHNRicXnVQGpUfikBkfcxIHfTDnmP-LolRYj7TNMn2AbKwPXxYPDVQ&usqp=CAU",
     },
     {
       id: 7,
-      name: "Chef Olivia",
+      name: "Chef Zoe",
       experience: 9,
       recipes: 45,
       likes: 90,
-      image: "chef6.jpg",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFQXzA7EqoezQemcVLEXUAffkE34KIdsnBFA&usqp=CAU",
     },
     {
       id: 8,
-      name: "Chef Olivia",
+      name: "Chef Taylor",
       experience: 9,
       recipes: 45,
       likes: 90,
-      image: "chef6.jpg",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn9M65w_36MfCO6UNrgR2kbmSWrUBa6KxnMw&usqp=CAU",
     },
     // Add more chef data as needed
   ];
 
   const handleViewRecipes = (chefId) => {
-    history.push(`/chef/${chefId}/recipes`);
+    const selectedChef = chefsData.find(chef => chef.id === chefId);
+  
+    if (selectedChef) {
+      history.push({
+        pathname: `/chef/${chefId}/recipes`,
+        state: { chef: selectedChef },
+      });
+    } else {
+      console.error(`Chef with id ${chefId} not found`);
+    }
   };
+  
+  
 
   return (
     <div>
@@ -158,13 +162,6 @@ const Home = () => {
             favoritesMap={favoritesMap}
           />
         </Row>
-        <Button
-          type="primary"
-          onClick={handleSignOut}
-          style={{ marginTop: 16 }}
-        >
-          Sign out
-        </Button>
       </div>
       <FooterBottom />
     </div>
