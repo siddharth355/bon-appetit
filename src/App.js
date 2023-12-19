@@ -6,7 +6,7 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 import About from "./About";
 import Favorites from "./Favourites";
-import ChefRecipes from "./ChefRecipes"; // Import ChefRecipes component
+import ChefRecipes from "./ChefRecipes"; 
 import { AuthProvider } from "./Auth";
 import PrivateRoute from "./PrivateRoute";
 

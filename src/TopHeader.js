@@ -2,8 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Layout, Menu } from 'antd';
 import { HomeOutlined, AppstoreOutlined, HeartOutlined, SettingOutlined, LogoutOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
-import { AuthContext } from './Auth'; // Update with the correct path
-import { auth } from './base'; // Update with the correct path
+import { AuthContext } from './Auth'; 
+import { auth } from './base'; 
 
 const { Header, Content } = Layout;
 
@@ -11,23 +11,25 @@ const TopHeader = () => {
   const history = useHistory();
   const [selectedMenuItem, setSelectedMenuItem] = useState('1');
   const [favorites, setFavorites] = useState([]);
-  const { currentUser } = useContext(AuthContext); // Get the current user from the AuthContext
+  const { currentUser } = useContext(AuthContext); 
 
   useEffect(() => {
     const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
     setFavorites(storedFavorites);
 
-    const storedMenuItem = localStorage.getItem('selectedMenuItem');
-    if (storedMenuItem) {
-      setSelectedMenuItem(storedMenuItem);
+    let storedMenuItem = localStorage.getItem('selectedMenuItem');
+    if (!storedMenuItem) {
+      storedMenuItem = '1';
+      localStorage.setItem('selectedMenuItem', storedMenuItem);
     }
+
+    setSelectedMenuItem(storedMenuItem);
   }, []);
 
   const handleMenuClick = (e) => {
     setSelectedMenuItem(e.key);
     navigateToPage(e.key);
 
-    // Save selected menu item to local storage
     localStorage.setItem('selectedMenuItem', e.key);
   };
 

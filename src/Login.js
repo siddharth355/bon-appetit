@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Redirect, withRouter, Link } from "react-router-dom";
 import { Form, Input, Button, Typography, Modal } from "antd";
 import { UserOutlined, LockOutlined, GoogleOutlined, GithubOutlined } from "@ant-design/icons";
@@ -16,6 +16,10 @@ const Login = ({ history }) => {
   const { currentUser } = useContext(AuthContext);
   const [errorModalVisible, setErrorModalVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem('selectedMenuItem', '1');
+  }, []);
 
   if (currentUser) {
     return <Redirect to="/" />;
@@ -62,6 +66,9 @@ const Login = ({ history }) => {
   const handleModalClose = () => {
     setErrorModalVisible(false);
   };
+
+   
+  
 
   return (
     <div style={{ background: "#f0f2f5", minHeight: "100vh", display: "flex", flexDirection: "column" }}>

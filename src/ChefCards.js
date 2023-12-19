@@ -22,7 +22,6 @@ const ChefCards = ({ chefsData, handleViewRecipes, handleAddToFavorites, loading
           <Button
             key="viewRecipes"
             onClick={() => handleViewRecipes(chef.id)}
-            // icon={<LoadingOutlined spin={loading} />}
             disabled={loading}
           >
             View Recipes
