@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Table, Tag, Typography } from "antd";
+import { Table, Typography, Button } from "antd";
+import { ArrowLeftOutlined } from "@ant-design/icons"; 
 import TopHeader from "./TopHeader";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import FooterBottom from "./FooterBottom";
 
 const { Title, Paragraph } = Typography;
@@ -10,19 +11,12 @@ const ChefRecipes = () => {
   const [recipes, setRecipes] = useState([]);
   const location = useLocation();
   const { chef } = location.state || {};
+  const history = useHistory();
 
   useEffect(() => {
-    // Assuming you have a JSON data structure for recipes
-    const sampleRecipesData = [
-      { id: 1, chefId: 1, name: "Recipe 1", description: "Description 1" },
-      { id: 2, chefId: 1, name: "Recipe 2", description: "Description 2" },
-      // Add more recipes as needed
-    ];
-  
-    // Simulate fetching recipes based on the chef's ID
-    const fetchedRecipes = sampleRecipesData.filter((recipe) => recipe.chefId === chef.id);
-    setRecipes(fetchedRecipes);
-  }, [chef.id]);
+    const recipesData = chef.recipesData || [];
+    setRecipes(recipesData);
+  }, [chef.recipesData]);
 
   const columns = [
     {
@@ -30,20 +24,33 @@ const ChefRecipes = () => {
       dataIndex: "name",
       key: "name",
       render: (text) => <Title level={4}>{text}</Title>,
+      style: { fontSize: 20 },
+      
     },
     {
       title: "Description",
       dataIndex: "description",
       key: "description",
       render: (text) => <Paragraph>{text}</Paragraph>,
+      style: { fontSize: 20 },
     },
   ];
+
+  const handleBack = () => {
+    history.push("/");
+  };
+  useEffect(() => {
+    localStorage.setItem('selectedMenuItem', '1');
+  }, []);
 
   return (
     <div>
       <TopHeader />
 
       <div style={{ padding: "20px" }}>
+        <Button type="primary" icon={<ArrowLeftOutlined />} onClick={handleBack} style={{ marginBottom: "20px" }}>
+          Back
+        </Button>
         <div style={{ textAlign: "center" }}>
           <img src={chef.image} alt={chef.name} style={{ maxWidth: "100%", borderRadius: "8px" }} />
           <Title level={2}>{chef.name}</Title>

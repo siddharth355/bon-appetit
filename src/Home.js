@@ -19,14 +19,14 @@ const Home = () => {
   const [favoritesMap, setFavoritesMap] = useState(new Map());
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, user => {
+    localStorage.setItem('selectedMenuItem', 1);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
       } else {
         history.push("/login");
       }
     });
-    // Fetch favorites from localStorage
     const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
     const favoritesMap = new Map(storedFavorites.map((chef) => [chef.id, chef]));
     setFavoritesMap(favoritesMap);
@@ -71,7 +71,13 @@ const Home = () => {
       recipes: 50,
       likes: 100,
       image: "https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA4L3Jhd3BpeGVsb2ZmaWNlN19wb3J0cmFpdF9vZl9hbl9hZnJpY2FuX2FtZXJpY2FuX2ZlbWFsZV9jaGVmX2luX182YTA4OTdkOS02MGYwLTRmNjQtOTcyYy1mZjEyOGEwMDFkNjMucG5n.png",
-      
+      recipesData: [
+        { id: 1, name: "Recipe 1", description: "Description 1" },
+        { id: 2, name: "Recipe 2", description: "Description 2" },
+        { id: 3, name: "Recipe 3", description: "Description 3" },
+        { id: 4, name: "Recipe 4", description: "Description 4" },
+        { id: 5, name: "Recipe 5", description: "Description 5" },
+      ],
     },
     {
       id: 2,
@@ -80,6 +86,13 @@ const Home = () => {
       recipes: 40,
       likes: 80,
       image: "https://media.istockphoto.com/id/1299940945/photo/woman-chef-holding-spatula-cooking-equipment.jpg?s=612x612&w=0&k=20&c=BmOEpgaHKlMtJ19Q8pb2e1stMkN-oS4AF6PtuZ2T954=",
+      recipesData: [
+        { id: 1, name: "Recipe 1", description: "Description 1" },
+        { id: 2, name: "Recipe 2", description: "Description 2" },
+        { id: 3, name: "Recipe 3", description: "Description 3" },
+        { id: 4, name: "Recipe 4", description: "Description 4" },
+        { id: 5, name: "Recipe 5", description: "Description 5" },
+      ],
     },
     {
       id: 3,
@@ -88,6 +101,13 @@ const Home = () => {
       recipes: 60,
       likes: 120,
       image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1Iwg0P2XSKGgFg1Q8NN60JS2S7AbXd9wxgV92iuCgEH0uyjerAOhHF0D6oHkehcwCdmc&usqp=CAU",
+      recipesData: [
+        { id: 1, name: "Recipe 1", description: "Description 1" },
+        { id: 2, name: "Recipe 2", description: "Description 2" },
+        { id: 3, name: "Recipe 3", description: "Description 3" },
+        { id: 4, name: "Recipe 4", description: "Description 4" },
+        { id: 5, name: "Recipe 5", description: "Description 5" },
+      ],
     },
     {
       id: 4,
@@ -96,6 +116,13 @@ const Home = () => {
       recipes: 30,
       likes: 60,
       image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcDcaNjG4Gl5w62aS131MzRHRQ613vr7iGEQ&usqp=CAU",
+      recipesData: [
+        { id: 1, name: "Recipe 1", description: "Description 1" },
+        { id: 2, name: "Recipe 2", description: "Description 2" },
+        { id: 3, name: "Recipe 3", description: "Description 3" },
+        { id: 4, name: "Recipe 4", description: "Description 4" },
+        { id: 5, name: "Recipe 5", description: "Description 5" },
+      ],
     },
     {
       id: 5,
@@ -104,6 +131,13 @@ const Home = () => {
       recipes: 75,
       likes: 150,
       image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwtIclBMKZZWKgBcoHR3m4d3-B2RWRfB43nQ&usqp=CAU",
+      recipesData: [
+        { id: 1, name: "Recipe 1", description: "Description 1" },
+        { id: 2, name: "Recipe 2", description: "Description 2" },
+        { id: 3, name: "Recipe 3", description: "Description 3" },
+        { id: 4, name: "Recipe 4", description: "Description 4" },
+        { id: 5, name: "Recipe 5", description: "Description 5" },
+      ],
     },
     {
       id: 6,
@@ -112,6 +146,13 @@ const Home = () => {
       recipes: 45,
       likes: 90,
       image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiKTb5PngHQg97OxHNRicXnVQGpUfikBkfcxIHfTDnmP-LolRYj7TNMn2AbKwPXxYPDVQ&usqp=CAU",
+      recipesData: [
+        { id: 1, name: "Recipe 1", description: "Description 1" },
+        { id: 2, name: "Recipe 2", description: "Description 2" },
+        { id: 3, name: "Recipe 3", description: "Description 3" },
+        { id: 4, name: "Recipe 4", description: "Description 4" },
+        { id: 5, name: "Recipe 5", description: "Description 5" },
+      ],
     },
     {
       id: 7,
@@ -120,6 +161,13 @@ const Home = () => {
       recipes: 45,
       likes: 90,
       image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFQXzA7EqoezQemcVLEXUAffkE34KIdsnBFA&usqp=CAU",
+      recipesData: [
+        { id: 1, name: "Recipe 1", description: "Description 1" },
+        { id: 2, name: "Recipe 2", description: "Description 2" },
+        { id: 3, name: "Recipe 3", description: "Description 3" },
+        { id: 4, name: "Recipe 4", description: "Description 4" },
+        { id: 5, name: "Recipe 5", description: "Description 5" },
+      ],
     },
     {
       id: 8,
@@ -128,8 +176,15 @@ const Home = () => {
       recipes: 45,
       likes: 90,
       image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn9M65w_36MfCO6UNrgR2kbmSWrUBa6KxnMw&usqp=CAU",
+      recipesData: [
+        { id: 1, name: "Recipe 1", description: "Description 1" },
+        { id: 2, name: "Recipe 2", description: "Description 2" },
+        { id: 3, name: "Recipe 3", description: "Description 3" },
+        { id: 4, name: "Recipe 4", description: "Description 4" },
+        { id: 5, name: "Recipe 5", description: "Description 5" },
+      ],
+
     },
-    // Add more chef data as needed
   ];
 
   const handleViewRecipes = (chefId) => {

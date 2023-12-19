@@ -42,7 +42,7 @@ const SignUp = ({ history }) => {
 
       history.push("/");
     } catch (error) {
-      alert(error.message);
+      history.push("/");
     }
   }, [history, imageUrl]);
 
