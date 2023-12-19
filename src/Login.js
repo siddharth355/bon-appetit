@@ -1,14 +1,22 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Redirect, withRouter, Link } from "react-router-dom";
 import { Form, Input, Button, Typography, Modal } from "antd";
-import { UserOutlined, LockOutlined, GoogleOutlined, GithubOutlined } from "@ant-design/icons";
+import {
+  UserOutlined,
+  LockOutlined,
+  GoogleOutlined,
+  GithubOutlined,
+} from "@ant-design/icons";
 import TopHeader from "./TopHeader.js";
 import FooterBottom from "./FooterBottom.js";
 import { AuthContext } from "./Auth.js";
-import { signInWithEmailAndPassword, getAuth, signInWithPopup} from 'firebase/auth';
-import {githubProvider, googleProvider} from "./base.js"
-import { auth } from './base'; 
-
+import {
+  signInWithEmailAndPassword,
+  getAuth,
+  signInWithPopup,
+} from "firebase/auth";
+import { githubProvider, googleProvider } from "./base.js";
+import { auth } from "./base";
 
 const { Title } = Typography;
 
@@ -18,7 +26,7 @@ const Login = ({ history }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    localStorage.setItem('selectedMenuItem', '1');
+    localStorage.setItem("selectedMenuItem", "1");
   }, []);
 
   if (currentUser) {
@@ -52,7 +60,7 @@ const Login = ({ history }) => {
       setErrorModalVisible(true);
     }
   };
-  
+
   const handleGithubLogin = async () => {
     try {
       await signInWithPopup(auth, githubProvider);
@@ -67,15 +75,30 @@ const Login = ({ history }) => {
     setErrorModalVisible(false);
   };
 
-   
-  
-
   return (
-    <div style={{ background: "#f0f2f5", minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+    <div
+      style={{
+        background: "#f0f2f5",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <TopHeader />
       <div style={{ padding: "20px", flex: 1 }}>
-        <div style={{ maxWidth: "400px", margin: "auto", background: "#fff", padding: "20px", borderRadius: "8px", boxShadow: "0 0 10px rgba(0,0,0,0.1)" }}>
-          <Title level={2} style={{ textAlign: "center" }}>Log in</Title>
+        <div
+          style={{
+            maxWidth: "400px",
+            margin: "auto",
+            background: "#fff",
+            padding: "20px",
+            borderRadius: "8px",
+            boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+          }}
+        >
+          <Title level={2} style={{ textAlign: "center" }}>
+            Log in
+          </Title>
           <Form
             name="login"
             initialValues={{ remember: true }}
@@ -92,7 +115,9 @@ const Login = ({ history }) => {
             </Form.Item>
             <Form.Item
               name="password"
-              rules={[{ required: true, message: "Please input your password!" }]}
+              rules={[
+                { required: true, message: "Please input your password!" },
+              ]}
             >
               <Input
                 prefix={<LockOutlined className="site-form-item-icon" />}
@@ -101,22 +126,36 @@ const Login = ({ history }) => {
               />
             </Form.Item>
             <Form.Item>
-              <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                style={{ width: "100%" }}
+              >
                 Log in
               </Button>
             </Form.Item>
           </Form>
 
-          <div style={{ textAlign: 'center', marginTop: '20px' }}>
-            <Button type="primary" icon={<GoogleOutlined />} onClick={handleGoogleLogin} style={{ width: "100%" }}>
+          <div style={{ textAlign: "center", marginTop: "20px" }}>
+            <Button
+              type="primary"
+              icon={<GoogleOutlined />}
+              onClick={handleGoogleLogin}
+              style={{ width: "100%" }}
+            >
               Log in with Google
             </Button>
-            <Button type="default" icon={<GithubOutlined />} onClick={handleGithubLogin} style={{ width: "100%", marginTop: '10px' }}>
+            <Button
+              type="default"
+              icon={<GithubOutlined />}
+              onClick={handleGithubLogin}
+              style={{ width: "100%", marginTop: "10px" }}
+            >
               Log in with GitHub
             </Button>
           </div>
         </div>
-        <div style={{ textAlign: 'center', marginTop: '10px' }}>
+        <div style={{ textAlign: "center", marginTop: "10px" }}>
           Don't have an account? <Link to="/signup">Sign Up</Link>
         </div>
       </div>
